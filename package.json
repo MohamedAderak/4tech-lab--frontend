@@ -1,0 +1,32 @@
+{
+  "name": "project-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "type": "module",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@vueform/slider": "^2.1.9",
+    "autoprefixer": "^10.4.16",
+    "axios": "^1.6.2",
+    "core-js": "^3.25.3",
+    "jquery": "^3.7.1",
+    "nuxt": "^2.15.8",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "vue": "^2.7.10",
+    "vue-scrollto": "^2.20.0",
+    "vue-server-renderer": "^2.7.15",
+    "vue-template-compiler": "^2.7.10",
+    "vuedraggable": "^2.24.3"
+  },
+  "devDependencies": {
+    "@fouita/slider": "^0.0.4",
+    "@nuxt/devtools": "^1.0.4"
+  }
+}
