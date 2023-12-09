@@ -26,7 +26,7 @@
         <div :class="{ 'flex': isMenuVisible, 'hidden': !isMenuVisible }" class="flex justify-start ">
           <div>
             <div v-for="(item, index) in radioItems" :key="index" class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-100 w-72">
-              <input :id="`${radioIdPrefix}-${index}`" type="radio" :value="item.value" :checked="item.checked" :name="radioGroupName" @change="handleRadioChange(item.value)" class="default-radio focus:ring-transparent w-4 h-4 dropdown bg-white-100">
+              <input :id="`${radioIdPrefix}-${index}`" type="radio" @click="() => handleRadioClick(index)" :value="item.value" :checked="item.checked" :name="radioGroupName" class="default-radio focus:ring-transparent w-4 h-4 dropdown bg-white-100">
               <label :id="`${labelIdPrefix}-${index}`" :for="`${radioIdPrefix}-${index}`" class="label-radio w-full ms-2 text-sm font-medium">{{ item.label }} </label>
             </div>
           </div>
@@ -57,7 +57,7 @@
       return {
         isRotated: false,
         isMenuVisible: false,
-        selectedValues: [],
+        selectedValues: "",
       };
     },
     methods: {
@@ -65,9 +65,12 @@
         this.isRotated = !this.isRotated;
         this.isMenuVisible = !this.isMenuVisible;
       },
-      handleRadioChange(selectedValue) {
-        this.selectedValues.push(selectedValue);
+      handleRadioClick(index) {
+        const selectedValue = this.radioItems[index].value;
+        this.selectedValues = selectedValue;
+        this.$emit('selected-values-changed', this.selectedValues);
       },
+
     },
   };
   </script>

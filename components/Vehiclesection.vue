@@ -1,10 +1,13 @@
 <template>
-    <div ref="content" class="relative mx-auto mt-4 p-8">
-      <div class="relative flex items-top justify-between">
-          <div class="text-lg mb-4"> <b class="font-bold">{{ resultsCount }} résultats</b> correspondant à votre recherche.</div>
+    <div ref="content" class=" mt-4  p-8 ">
+      <div class="flex items-top justify-between ">
+          <div class="text-lg mb-4"> 
+            <b class="font-bold">{{ resultsCount }} résultats</b><br/>
+            <p class="text-xs text-cyan-800 font-medium">correspondant à votre recherche.</p> 
+          </div>
           <div class="flex items-center mb-4">
-            <label for="sort" class="mr-2">Trier par:</label>
-            <select id="sort" class="p-2 border border-gray-300 rounded" @change="handleSortChange"> 
+            <label for="sort" class="flex text-md font-bold mr-2 w-auto">Trier:</label>
+            <select id="sort" class="p-2 w-40 border border-gray-300 rounded" @change="handleSortChange"> 
               <option value="" selected>-- Select --</option>
               <option value="price">Prix (Bas à Haut)</option>
               <option value="brand">Marque (A à Z)</option>
@@ -16,23 +19,23 @@
           </div>
       </div>
   
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-2 ">
+      <div class="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0 mt-5">
       <div
         v-for="(vehicle, index) in filteredVehicles"
         :key="index"
-        class="bg-blue-100 border border-gray-300 rounded-lg shadow dark:border-gray-300 m-3 h-auto"
+        class="bg-blue-100 border border-gray-300 rounded-xl shadow-lg  hover:scale-105 transition duration-500 dark:border-gray-300 "
       >
-        <template v-if="index !== 5">
+        <template v-if="index !== 5" class="p-1/2">
           <img
             :src="vehicle.photos[1]"
             alt="Vehicle Photo"
-            class="w-auto h-50 object-cover rounded-t-lg mb-2"
+            class="w-screen h-50 object-cover rounded-t-lg mb-2"
           />
           <div class="flex p-6 justify-between">
           <div>
             <p class="text-sky-600 font-medium">{{ vehicle.brand }}</p>
             <h1 class="text-cyan-900 font-bold">{{ vehicle.model }}</h1>
-            <p class="text-base text-cyan-800 font-medium">
+            <p class="text-base text-gray-800 font-medium">
               {{ vehicle.designation }}
             </p>
             <p class="text-sm text-cyan-800 font-medium">
@@ -64,21 +67,27 @@
         </div>
         </template>
         <template v-else>
-
-          <div class="relative p-4 rounded h-full shadow" style="background-image: url('https://www.coches.com/fotos_historicas/dacia/Duster-2017/dacia_duster-2017_r11.jpg'); background-size: cover; filter: grayscale(20%); background-position: center;">
-            <div class="absolute inset-x-0 bottom-4 text-center">
-              <p class="text-lg text-slate-50 text-shadow font-semibold m-5 mb-2">Vous ne trouvez pas votre<br/> bonheur ? Nous faisons la<br/> recherche pour vous</p>
-              <button class="backdrop-opacity-0 border border-white text-white px-2 py-2 mb-1 rounded-full">
-                <span class="mr-1">&#x2192;</span> Découvrir 
-              </button>
+          <div class="relative shadow dark:border-gray-300 h-full">
+            <div class=" absolute p-6 justify-between inset-x-0 bottom-2 text-center">
+                  <p class="text-xl text-slate-50 dark:text-shadow font-semibold m-1 mb-8 drop-shadow-[0_8px_5px_rgb(27,70,83)]">Vous ne trouvez pas votre<br/> bonheur ? Nous faisons la<br/> recherche pour vous</p>
+                  <button class="backdrop-opacity-0 border border-white text-white px-2 py-2  rounded-full">
+                      <span class="mr-1">&#x2192;</span> Découvrir 
+                  </button>
             </div>
-          </div>
+            <img
+              src="https://www.coches.com/fotos_historicas/dacia/Duster-2017/dacia_duster-2017_r11.jpg"
+              alt="Vehicle Photo"
+              class=" w-auto h-full object-cover rounded mb-2"
+            />
+            </div>
+           
+
 
         </template>
       </div>
     </div>
 
-    <div class="mt-4 flex justify-between items-center pb-10">
+    <div class="mt-6 flex justify-between items-center pb-10">
       <button @click="prevPage" :disabled="currentPage === 1" class="bg-blue-500 text-white px-4 py-2 rounded">
         Précédent
       </button>
@@ -204,6 +213,7 @@ export default {
       console.log(selectedSort);
       const url = `/api/vehicles/sort/${selectedSort}`;
       await this.fetchData(url);
+      this.goToPage(1)
     },
 
     async fetchDataFromApi() {
@@ -235,7 +245,5 @@ export default {
 </script>
 
 <style>
-.text-shadow{
-  text-shadow: 20px 20px 50px #0E4A5B;
-}
+
 </style>
